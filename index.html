@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B&amp;J Creative — Produção Audiovisual em Concórdia, SC</title>
+<meta name="description" content="B&amp;J Creative: produção de vídeos, fotografia, edição e marketing digital para empresas de Concórdia e região.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a1412;
+    --ink-2:#0f1f1c;
+    --ink-3:#13241f;
+    --teal:#1f5c54;
+    --teal-soft:#2c7a6e;
+    --orange:#e8773c;
+    --orange-soft:#f29b6b;
+    --cream:#f4eee0;
+    --grey:#8c968f;
+    --line:rgba(244,238,224,0.14);
+    --bar-h:56px;
+    --foot-h:40px;
+    --display:"Big Shoulders Display",sans-serif;
+    --body:"Archivo",sans-serif;
+    --mono:"Space Mono",monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{ -webkit-text-size-adjust:100%; }
+  @media (prefers-reduced-motion:no-preference){ html{ scroll-behavior:smooth; } }
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--cream);
+    font-family:var(--body);
+    line-height:1.5;
+    padding-top:var(--bar-h);
+    padding-bottom:var(--foot-h);
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:0.01em;margin:0;}
+  p{margin:0;}
+  img,svg{display:block;}
+  :focus-visible{outline:2px solid var(--orange);outline-offset:3px;}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--orange-soft);
+  }
+
+  /* ---------- HUD top bar ---------- */
+  .hud-top{
+    position:fixed;top:0;left:0;right:0;height:var(--bar-h);
+    z-index:60;
+    background:rgba(10,20,18,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    display:flex;align-items:center;
+  }
+  .hud-top .wrap{
+    width:100%;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;
+  }
+  .logo-mark{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:1.15rem;
+    letter-spacing:0.02em;
+  }
+  .logo-mark span{color:var(--orange);}
+
+  .timecode{
+    display:none;
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--grey);
+    align-items:center;
+    gap:8px;
+    letter-spacing:0.04em;
+  }
+  .rec-dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--orange);
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .rec-dot{ animation:blink 1.6s steps(1) infinite; }
+  }
+  @keyframes blink{ 50%{ opacity:0.15; } }
+  @media (min-width:860px){ .timecode{ display:flex; } }
+
+  .nav-desktop{display:none;align-items:center;gap:28px;}
+  .nav-desktop a{
+    font-family:var(--mono);
+    font-size:0.74rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--cream);
+    opacity:0.85;
+    transition:opacity .2s;
+  }
+  .nav-desktop a:hover{opacity:1;color:var(--orange-soft);}
+  .nav-desktop a .fstop{color:var(--orange-soft);opacity:0.8;margin-right:4px;}
+  @media (min-width:860px){ .nav-desktop{display:flex;} }
+
+  .nav-toggle{
+    position:relative;z-index:65;
+    display:flex;flex-direction:column;justify-content:center;gap:5px;
+    width:34px;height:34px;background:none;border:1px solid var(--line);
+    border-radius:4px;cursor:pointer;
+  }
+  .nav-toggle span{
+    display:block;height:2px;width:18px;margin:0 auto;background:var(--cream);
+    transition:transform .25s, opacity .25s;
+  }
+  .nav-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle.active span:nth-child(2){opacity:0;}
+  .nav-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  @media (min-width:860px){ .nav-toggle{display:none;} }
+
+  body.nav-open{overflow:hidden;}
+
+  .nav-mobile{
+    position:fixed;top:var(--bar-h);left:0;right:0;bottom:0;
+    background:rgba(10,20,18,0.98);
+    z-index:55;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:8px 32px;
+    opacity:0;visibility:hidden;
+    transition:opacity .25s;
+  }
+  .nav-mobile.open{ opacity:1;visibility:visible; }
+  .nav-mobile a{
+    font-family:var(--mono);font-size:1.15rem;letter-spacing:0.05em;text-transform:uppercase;
+    padding:18px 0;border-bottom:1px solid var(--line);color:var(--cream);
+  }
+  .nav-mobile a:last-child{border-bottom:none;}
+  @media (min-width:860px){ .nav-mobile{display:none;} }
+
+  /* ---------- HUD bottom bar ---------- */
+  .hud-bottom{
+    position:fixed;bottom:0;left:0;right:0;height:var(--foot-h);
+    background:rgba(10,20,18,0.92);
+    border-top:1px solid var(--line);
+    z-index:60;
+    display:flex;align-items:center;
+  }
+  .hud-bottom .wrap{
+    width:100%;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--mono);font-size:0.68rem;color:var(--grey);letter-spacing:0.04em;
+  }
+
+  /* ---------- viewfinder corner brackets ---------- */
+  .bracket{
+    position:fixed;width:22px;height:22px;border-color:var(--orange-soft);
+    opacity:0.55;pointer-events:none;z-index:50;display:none;
+  }
+  @media (min-width:640px){ .bracket{display:block;} }
+  .bracket.tl{top:calc(var(--bar-h) + 16px);left:16px;border-top:2px solid;border-left:2px solid;}
+  .bracket.tr{top:calc(var(--bar-h) + 16px);right:16px;border-top:2px solid;border-right:2px solid;}
+  .bracket.bl{bottom:calc(var(--foot-h) + 16px);left:16px;border-bottom:2px solid;border-left:2px solid;}
+  .bracket.br{bottom:calc(var(--foot-h) + 16px);right:16px;border-bottom:2px solid;border-right:2px solid;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:calc(100vh - var(--bar-h) - var(--foot-h));
+    display:flex;align-items:center;
+    padding:96px 0 64px;
+    background:
+      radial-gradient(ellipse 60% 50% at 12% 8%, rgba(31,92,84,0.55), transparent 60%),
+      radial-gradient(ellipse 55% 55% at 92% 95%, rgba(232,119,60,0.32), transparent 60%),
+      var(--ink);
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(244,238,224,0.035) 1px, transparent 1px);
+    background-size:3px 3px;
+    mix-blend-mode:overlay;opacity:0.5;
+  }
+  .slate-tag{
+    display:inline-flex;align-items:center;gap:10px;
+    border:1px solid var(--line);border-radius:3px;
+    padding:7px 12px;margin-bottom:28px;
+    font-family:var(--mono);font-size:0.72rem;letter-spacing:0.06em;
+    color:var(--grey);position:relative;z-index:1;
+  }
+  .slate-tag b{color:var(--cream);font-weight:700;}
+  .hero h1{
+    position:relative;z-index:1;
+    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    line-height:1.04;
+    max-width:14ch;
+    text-transform:uppercase;
+  }
+  .hero h1 em{font-style:normal;color:var(--orange);}
+  .hero p.lead{
+    position:relative;z-index:1;
+    margin-top:24px;max-width:46ch;
+    font-size:1.05rem;color:#d7d2c4;
+  }
+  .cta-row{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:14px 24px;border-radius:3px;
+    font-family:var(--mono);font-size:0.82rem;letter-spacing:0.04em;text-transform:uppercase;
+    border:1px solid transparent;transition:transform .15s, background .2s;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--orange);color:var(--ink);}
+  .btn-primary:hover{background:var(--orange-soft);}
+  .btn-secondary{border-color:var(--line);color:var(--cream);}
+  .btn-secondary:hover{border-color:var(--orange-soft);color:var(--orange-soft);}
+
+  /* ---------- generic section ---------- */
+  .section{padding:88px 0;border-top:1px solid var(--line);}
+  .section-head{max-width:60ch;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(1.7rem,3.6vw,2.5rem);margin-top:10px;text-transform:uppercase;}
+  .section-head p{margin-top:14px;color:#cfcabd;font-size:1rem;max-width:50ch;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.is-visible{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion:reduce){ .reveal{opacity:1;transform:none;transition:none;} }
+
+  /* ---------- diferencial: shot list ---------- */
+  .shotlist{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border:1px solid var(--line);border-radius:4px;overflow:hidden;
+  }
+  .shot{padding:26px 22px;border-right:1px solid var(--line);background:var(--ink-2);}
+  .shot:last-child{border-right:none;}
+  .shot .num{font-family:var(--mono);color:var(--orange-soft);font-size:0.85rem;}
+  .shot h3{font-size:1.05rem;margin-top:10px;text-transform:uppercase;font-family:var(--body);font-weight:700;}
+  .shot p{margin-top:8px;font-size:0.88rem;color:var(--grey);}
+  @media (max-width:760px){
+    .shotlist{grid-template-columns:1fr;}
+    .shot{border-right:none;border-bottom:1px solid var(--line);}
+    .shot:last-child{border-bottom:none;}
+  }
+
+  .pull{
+    font-family:var(--display);font-weight:700;font-size:clamp(1.4rem,3vw,2rem);
+    color:var(--cream);max-width:34ch;margin-bottom:36px;line-height:1.15;
+  }
+  .pull em{color:var(--orange);font-style:normal;}
+
+  /* ---------- services: rolls ---------- */
+  .rolls{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .roll{
+    background:var(--ink-2);border:1px solid var(--line);border-radius:4px;
+    padding:28px;
+  }
+  .roll-tag{
+    font-family:var(--mono);font-size:0.72rem;color:var(--orange-soft);
+    letter-spacing:0.1em;text-transform:uppercase;
+  }
+  .roll h3{margin-top:10px;font-size:1.4rem;text-transform:uppercase;}
+  .roll ul{margin-top:16px;display:flex;flex-direction:column;gap:9px;}
+  .roll li{
+    font-size:0.92rem;color:#d7d2c4;padding-left:16px;position:relative;
+  }
+  .roll li::before{
+    content:"";position:absolute;left:0;top:0.55em;width:6px;height:1px;background:var(--orange-soft);
+  }
+  @media (max-width:760px){ .rolls{grid-template-columns:1fr;} }
+  .rolls-single{grid-template-columns:1fr;max-width:540px;}
+
+  /* ---------- publico: chips ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip{
+    border:1px solid var(--line);border-radius:30px;padding:9px 18px;
+    font-size:0.86rem;color:#d7d2c4;background:var(--ink-2);
+  }
+
+  /* ---------- contato ---------- */
+  .contact-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start;}
+  .contact-info{display:flex;flex-direction:column;gap:18px;margin-top:8px;}
+  .contact-info a, .contact-info span{font-family:var(--mono);font-size:0.9rem;color:#d7d2c4;}
+  .contact-info a:hover{color:var(--orange-soft);}
+  .contact-label{display:block;font-size:0.68rem;color:var(--grey);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;}
+  @media (max-width:760px){ .contact-grid{grid-template-columns:1fr;} }
+
+</style>
+</head>
+<body>
+
+  <span class="bracket tl"></span>
+  <span class="bracket tr"></span>
+  <span class="bracket bl"></span>
+  <span class="bracket br"></span>
+
+  <header class="hud-top">
+    <div class="wrap">
+      <a href="#hero" class="logo-mark">B<span>&amp;</span>J CREATIVE</a>
+
+      <div class="timecode" aria-hidden="true">
+        <span class="rec-dot"></span>
+        <span>REC</span>
+        <span id="tc">00:00:00:00</span>
+      </div>
+
+      <nav class="nav-desktop">
+        <a href="#diferencial"><span class="fstop">ƒ/2.8</span>Diferencial</a>
+        <a href="#servicos"><span class="fstop">ƒ/4</span>Serviços</a>
+        <a href="#destaque"><span class="fstop">ƒ/5.6</span>Destaque</a>
+        <a href="#contato"><span class="fstop">ƒ/8</span>Contato</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMobile" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="nav-mobile" id="navMobile">
+    <a href="#diferencial">Diferencial</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#destaque">Destaque</a>
+    <a href="#contato">Contato</a>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="wrap">
+        <span class="slate-tag"><b>B&amp;J CREATIVE</b> · CONCÓRDIA, SC · TAKE 01</span>
+        <h1>Transformamos ideias em <em>vídeos que vendem.</em></h1>
+        <p class="lead">Produção audiovisual completa para empresas de Concórdia e região: filmamos, editamos e ainda colocamos o resultado na frente do cliente certo.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://wa.me/5549900000000?text=Oi!%20Quero%20saber%20mais%20sobre%20a%20produ%C3%A7%C3%A3o%20de%20v%C3%ADdeos%20da%20B%26J%20Creative." target="_blank" rel="noopener">Falar no WhatsApp</a>
+          <a class="btn btn-secondary" href="#servicos">Ver serviços</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIFERENCIAL -->
+    <section class="section" id="diferencial">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">O diferencial</span>
+          <h2>Vídeo bonito não basta.</h2>
+          <p>A maioria dos videomakers entrega um arquivo e some. A B&amp;J Creative entrega o vídeo e a campanha que leva gente até ele.</p>
+        </div>
+
+        <p class="pull reveal">"Gravamos, editamos e ainda rodamos a campanha pra esse vídeo <em>alcançar milhares de pessoas.</em>"</p>
+
+        <div class="shotlist reveal">
+          <div class="shot">
+            <span class="num">01</span>
+            <h3>Gravamos</h3>
+            <p>Captação profissional no local, com roteiro pensado pro seu negócio.</p>
+          </div>
+          <div class="shot">
+            <span class="num">02</span>
+            <h3>Editamos</h3>
+            <p>Corte, cor e ritmo certos pra reter atenção do primeiro ao último segundo.</p>
+          </div>
+          <div class="shot">
+            <span class="num">03</span>
+            <h3>Divulgamos</h3>
+            <p>Campanha de tráfego pago pra colocar o vídeo na frente de quem decide comprar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section class="section" id="servicos">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">O que produzimos</span>
+          <h2>Shot list completa</h2>
+          <p>Da captação à divulgação, sem precisar contratar quatro fornecedores diferentes.</p>
+        </div>
+
+        <div class="rolls reveal">
+          <div class="roll">
+            <span class="roll-tag">Roll A · Produção de vídeos</span>
+            <h3>🎥 Vídeo</h3>
+            <ul>
+              <li>Reels</li><li>TikTok</li><li>Shorts</li>
+              <li>Vídeos institucionais</li><li>Comerciais</li>
+              <li>Cobertura de eventos</li><li>Captação para redes sociais</li>
+            </ul>
+          </div>
+          <div class="roll">
+            <span class="roll-tag">Roll B · Fotografia</span>
+            <h3>📸 Foto</h3>
+            <ul>
+              <li>Produtos</li><li>Empresas</li><li>Retratos profissionais</li>
+            </ul>
+          </div>
+          <div class="roll">
+            <span class="roll-tag">Roll C · Edição</span>
+            <h3>🎬 Edição</h3>
+            <ul>
+              <li>Reels</li><li>YouTube</li><li>Podcasts</li><li>Anúncios</li>
+            </ul>
+          </div>
+          <div class="roll">
+            <span class="roll-tag">Roll D · Divulgação</span>
+            <h3>📈 Divulgação</h3>
+            <ul>
+              <li>Gestão de anúncios</li><li>Gestão de Instagram</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESTAQUE -->
+    <section class="section" id="destaque">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Serviço em destaque</span>
+          <h2>Plano mensal de conteúdo</h2>
+          <p>Pra quem não quer depender de vídeo avulso: a gente grava, edita e entrega conteúdo novo todo mês, com previsibilidade de custo e calendário fixo.</p>
+        </div>
+
+        <div class="rolls rolls-single reveal">
+          <div class="roll">
+            <span class="roll-tag">Assinatura mensal</span>
+            <h3>📅 Conteúdo recorrente</h3>
+            <ul>
+              <li>4 vídeos por mês para redes sociais</li>
+              <li>1 captação no local por mês (evento ou produto)</li>
+              <li>Edição completa com legenda</li>
+              <li>Calendário de postagem definido com você</li>
+              <li>Relatório mensal de resultado</li>
+            </ul>
+            <div class="cta-row" style="margin-top:22px;">
+              <a class="btn btn-primary" href="https://wa.me/5549900000000?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20plano%20mensal%20de%20conte%C3%BAdo%20da%20B%26J%20Creative." target="_blank" rel="noopener">Quero esse plano</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PÚBLICO -->
+    <section class="section" id="publico">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Para quem produzimos</span>
+          <h2>Quem já pode contar com a gente</h2>
+        </div>
+        <div class="chips reveal">
+          <span class="chip">Restaurantes</span>
+          <span class="chip">Clínicas</span>
+          <span class="chip">Academias</span>
+          <span class="chip">Barbearias</span>
+          <span class="chip">Salões</span>
+          <span class="chip">Lojas</span>
+          <span class="chip">Concessionárias</span>
+          <span class="chip">Imobiliárias</span>
+          <span class="chip">Indústrias de Concórdia</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="section" id="contato">
+      <div class="wrap">
+        <div class="contact-grid">
+          <div class="reveal">
+            <span class="eyebrow">Bora gravar?</span>
+            <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);margin-top:10px;text-transform:uppercase;">Vamos produzir a próxima campanha da sua empresa.</h2>
+            <div class="cta-row" style="margin-top:28px;">
+              <a class="btn btn-primary" href="https://wa.me/5549900000000?text=Oi!%20Quero%20fazer%20um%20v%C3%ADdeo%20com%20a%20B%26J%20Creative." target="_blank" rel="noopener">Falar no WhatsApp</a>
+            </div>
+          </div>
+          <div class="contact-info reveal">
+            <div>
+              <span class="contact-label">WhatsApp</span>
+              <a href="https://wa.me/5549900000000" target="_blank" rel="noopener">(49) 90000-0000</a>
+            </div>
+            <div>
+              <span class="contact-label">Instagram</span>
+              <a href="https://instagram.com/bjcreative" target="_blank" rel="noopener">@bjcreative</a>
+            </div>
+            <div>
+              <span class="contact-label">E-mail</span>
+              <a href="mailto:contato@bjcreative.com.br">contato@bjcreative.com.br</a>
+            </div>
+            <div>
+              <span class="contact-label">Onde estamos</span>
+              <span>Concórdia, Santa Catarina</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="hud-bottom">
+    <div class="wrap">
+      <span>© <span id="year"></span> B&amp;J Creative</span>
+      <span>Concórdia, SC — Brasil</span>
+    </div>
+  </footer>
+
+<script>
+  // ano no rodapé
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // menu mobile
+  const toggle = document.getElementById('navToggle');
+  const navMobile = document.getElementById('navMobile');
+
+  function setMenu(open) {
+    navMobile.classList.toggle('open', open);
+    toggle.classList.toggle('active', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.classList.toggle('nav-open', open);
+  }
+
+  toggle.addEventListener('click', () => {
+    setMenu(!navMobile.classList.contains('open'));
+  });
+  navMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => setMenu(false));
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenu(false);
+  });
+
+  // timecode HUD (estético, conta o tempo de visita)
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const tcEl = document.getElementById('tc');
+  if (tcEl && !reduceMotion) {
+    const start = Date.now();
+    const pad = n => String(n).padStart(2, '0');
+    setInterval(() => {
+      const ms = Date.now() - start;
+      const totalFrames = Math.floor(ms / (1000 / 24));
+      const ff = totalFrames % 24;
+      const totalSeconds = Math.floor(ms / 1000);
+      const ss = totalSeconds % 60;
+      const mm = Math.floor(totalSeconds / 60) % 60;
+      const hh = Math.floor(totalSeconds / 3600);
+      tcEl.textContent = `${pad(hh)}:${pad(mm)}:${pad(ss)}:${pad(ff)}`;
+    }, 80);
+  }
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+</script>
+
+</body>
+</html>
