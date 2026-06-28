@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>B&amp;J Creative — Produção Audiovisual em Concórdia, SC</title>
-<meta name="description" content="B&amp;J Creative: produção de vídeos, fotografia, edição e marketing digital para empresas de Concórdia e região.">
+<title>Bejo Studio — Produção Audiovisual em Concórdia, SC</title>
+<meta name="description" content="Bejo Studio: produção de vídeos, fotografia, edição e marketing digital para empresas de Concórdia e região.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -227,6 +227,10 @@
   .section-head{max-width:60ch;margin-bottom:48px;}
   .section-head h2{font-size:clamp(1.7rem,3.6vw,2.5rem);margin-top:10px;text-transform:uppercase;}
   .section-head p{margin-top:14px;color:#cfcabd;font-size:1rem;max-width:50ch;}
+  @media (max-width:760px){
+    .section{padding:56px 0;}
+    .section-head{margin-bottom:32px;}
+  }
 
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
   .reveal.is-visible{opacity:1;transform:translateY(0);}
@@ -244,7 +248,7 @@
   .shot p{margin-top:8px;font-size:0.88rem;color:var(--grey);}
   @media (max-width:760px){
     .shotlist{grid-template-columns:1fr;}
-    .shot{border-right:none;border-bottom:1px solid var(--line);}
+    .shot{border-right:none;border-bottom:1px solid var(--line);padding:20px 20px;}
     .shot:last-child{border-bottom:none;}
   }
 
@@ -273,7 +277,6 @@
     content:"";position:absolute;left:0;top:0.55em;width:6px;height:1px;background:var(--orange-soft);
   }
   @media (max-width:760px){ .rolls{grid-template-columns:1fr;} }
-  .rolls-single{grid-template-columns:1fr;max-width:540px;}
 
   /* ---------- publico: chips ---------- */
   .chips{display:flex;flex-wrap:wrap;gap:10px;}
@@ -301,7 +304,7 @@
 
   <header class="hud-top">
     <div class="wrap">
-      <a href="#hero" class="logo-mark">B<span>&amp;</span>J CREATIVE</a>
+      <a href="#hero" class="logo-mark">BEJO <span>STUDIO</span></a>
 
       <div class="timecode" aria-hidden="true">
         <span class="rec-dot"></span>
@@ -334,11 +337,11 @@
     <!-- HERO -->
     <section class="hero" id="hero">
       <div class="wrap">
-        <span class="slate-tag"><b>B&amp;J CREATIVE</b> · CONCÓRDIA, SC · TAKE 01</span>
+        <span class="slate-tag"><b>BEJO STUDIO</b> · CONCÓRDIA, SC · TAKE 01</span>
         <h1>Transformamos ideias em <em>vídeos que vendem.</em></h1>
         <p class="lead">Produção audiovisual completa para empresas de Concórdia e região: filmamos, editamos e ainda colocamos o resultado na frente do cliente certo.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="https://wa.me/5549900000000?text=Oi!%20Quero%20saber%20mais%20sobre%20a%20produ%C3%A7%C3%A3o%20de%20v%C3%ADdeos%20da%20B%26J%20Creative." target="_blank" rel="noopener">Falar no WhatsApp</a>
+          <a class="btn btn-primary" href="https://wa.me/5549900000000?text=Oi!%20Quero%20saber%20mais%20sobre%20a%20produ%C3%A7%C3%A3o%20de%20v%C3%ADdeos%20da%20Bejo%20Studio." target="_blank" rel="noopener">Falar no WhatsApp</a>
           <a class="btn btn-secondary" href="#servicos">Ver serviços</a>
         </div>
       </div>
@@ -350,7 +353,7 @@
         <div class="section-head reveal">
           <span class="eyebrow">O diferencial</span>
           <h2>Vídeo bonito não basta.</h2>
-          <p>A maioria dos videomakers entrega um arquivo e some. A B&amp;J Creative entrega o vídeo e a campanha que leva gente até ele.</p>
+          <p>A maioria dos videomakers entrega um arquivo e some. A Bejo Studio entrega o vídeo e a campanha que leva gente até ele.</p>
         </div>
 
         <p class="pull reveal">"Gravamos, editamos e ainda rodamos a campanha pra esse vídeo <em>alcançar milhares de pessoas.</em>"</p>
@@ -423,12 +426,25 @@
     <section class="section" id="destaque">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="eyebrow">Serviço em destaque</span>
-          <h2>Plano mensal de conteúdo</h2>
-          <p>Pra quem não quer depender de vídeo avulso: a gente grava, edita e entrega conteúdo novo todo mês, com previsibilidade de custo e calendário fixo.</p>
+          <span class="eyebrow">Como contratar</span>
+          <h2>Planos</h2>
+          <p>Quer começar com um vídeo só? Ou prefere conteúdo novo todo mês, sem precisar pedir de novo? Tem plano pros dois casos.</p>
         </div>
 
-        <div class="rolls rolls-single reveal">
+        <div class="rolls reveal">
+          <div class="roll">
+            <span class="roll-tag">Pacote avulso</span>
+            <h3>🎬 Vídeo avulso</h3>
+            <ul>
+              <li>1 vídeo institucional, comercial ou de evento</li>
+              <li>Captação no local em 1 dia</li>
+              <li>Edição completa com legenda</li>
+              <li>Entrega em até 7 dias úteis</li>
+            </ul>
+            <div class="cta-row" style="margin-top:22px;">
+              <a class="btn btn-secondary" href="https://wa.me/5549900000000?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20pacote%20avulso%20da%20Bejo%20Studio." target="_blank" rel="noopener">Quero um vídeo avulso</a>
+            </div>
+          </div>
           <div class="roll">
             <span class="roll-tag">Assinatura mensal</span>
             <h3>📅 Conteúdo recorrente</h3>
@@ -440,7 +456,7 @@
               <li>Relatório mensal de resultado</li>
             </ul>
             <div class="cta-row" style="margin-top:22px;">
-              <a class="btn btn-primary" href="https://wa.me/5549900000000?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20plano%20mensal%20de%20conte%C3%BAdo%20da%20B%26J%20Creative." target="_blank" rel="noopener">Quero esse plano</a>
+              <a class="btn btn-primary" href="https://wa.me/5549900000000?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20plano%20mensal%20de%20conte%C3%BAdo%20da%20Bejo%20Studio." target="_blank" rel="noopener">Quero esse plano</a>
             </div>
           </div>
         </div>
@@ -476,7 +492,7 @@
             <span class="eyebrow">Bora gravar?</span>
             <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);margin-top:10px;text-transform:uppercase;">Vamos produzir a próxima campanha da sua empresa.</h2>
             <div class="cta-row" style="margin-top:28px;">
-              <a class="btn btn-primary" href="https://wa.me/5549900000000?text=Oi!%20Quero%20fazer%20um%20v%C3%ADdeo%20com%20a%20B%26J%20Creative." target="_blank" rel="noopener">Falar no WhatsApp</a>
+              <a class="btn btn-primary" href="https://wa.me/5549900000000?text=Oi!%20Quero%20fazer%20um%20v%C3%ADdeo%20com%20a%20Bejo%20Studio." target="_blank" rel="noopener">Falar no WhatsApp</a>
             </div>
           </div>
           <div class="contact-info reveal">
@@ -486,11 +502,11 @@
             </div>
             <div>
               <span class="contact-label">Instagram</span>
-              <a href="https://instagram.com/bjcreative" target="_blank" rel="noopener">@bjcreative</a>
+              <a href="https://instagram.com/bejostudio" target="_blank" rel="noopener">@bejostudio</a>
             </div>
             <div>
               <span class="contact-label">E-mail</span>
-              <a href="mailto:contato@bjcreative.com.br">contato@bjcreative.com.br</a>
+              <a href="mailto:contato@bejostudio.com.br">contato@bejostudio.com.br</a>
             </div>
             <div>
               <span class="contact-label">Onde estamos</span>
@@ -505,7 +521,7 @@
 
   <footer class="hud-bottom">
     <div class="wrap">
-      <span>© <span id="year"></span> B&amp;J Creative</span>
+      <span>© <span id="year"></span> Bejo Studio</span>
       <span>Concórdia, SC — Brasil</span>
     </div>
   </footer>
